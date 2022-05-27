@@ -23,7 +23,7 @@ if os.environ.get("MACKEREL_AGENT_PLUGIN_META") == "1":
     print(json.dumps(meta))
     sys.exit(0)
 
-command = 'ps aux | grep "python" | grep -v "\(root\|grep\)" | wc -l'
+command = f'ps aux | grep "python" | grep -v "\(root\|grep\)" | grep -v "{os.path.basename(__file__)}" | wc -l'
 proc = subprocess.run(command, shell=True, stdout=PIPE, stderr=PIPE, text=True)
 if proc.returncode != 0:
     print("error: " + proc.stderr)
